@@ -1,0 +1,15 @@
+{
+  "name": "k-garnu",
+  "version": "1.0.1",
+  "description": "A CLI-based task manager",
+  "main": "index.js",
+  "bin": {
+    "timro-muskan": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    
+  }
+}
