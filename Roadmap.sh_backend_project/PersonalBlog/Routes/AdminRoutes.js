@@ -1,10 +1,12 @@
 const express = require("express");
-const { getPersonalBlog } = require("../Controller/admin");
+const { getPersonalBlog, addPersonalBlog, deleteParticularBlog, editParticularBlog } = require("../Controller/admin");
 
-const adminRouter =  express.Router();
+const adminRouter = express.Router();
 
-adminRouter.get('/admin',getPersonalBlog);
-
+adminRouter.get("/admin/getBlog", getPersonalBlog);
+adminRouter.post("/admin/addblog", addPersonalBlog);
+adminRouter.delete("/admin/deleteBlog/:blogId",deleteParticularBlog);
+adminRouter.patch("/admin/editBlog/:blogId",editParticularBlog);
 module.exports = {
-    adminRouter
-}
+  adminRouter,
+};
