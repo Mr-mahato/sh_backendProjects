@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target:"http://localhost:3001/v1/api",
+        target:"https://personalblogsh.onrender.com/v1/api",
         changeOrigin:true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

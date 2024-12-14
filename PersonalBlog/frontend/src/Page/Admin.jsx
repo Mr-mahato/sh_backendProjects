@@ -10,7 +10,7 @@ function Admin() {
   const handleBlogDeletion = async (blogId) => {
     try {
       const responseBlogDeletion = await axios.delete(
-        `/api/admin/deleteBlog/${blogId}`
+        `https://personalblogsh.onrender.com/v1/api/admin/deleteBlog/${blogId}`
       );
       deleteBlog(blogId);
     } catch (error) {
@@ -22,7 +22,7 @@ function Admin() {
     return (
       <div key={ind} className="border p-2 rounded-md">
         <div className="flex justify-between">
-          <h1 className="text-2xl font-semibold capitalize">
+          <h1 className="md:text-2xl text-xl font-semibold capitalize">
             {val.articleTitle}
           </h1>
           <div className="flex justify-between items-center gap-2">
@@ -45,7 +45,7 @@ function Admin() {
   });
 
   return (
-    <div className="mt-4 w-1/2 min-h-screen mx-auto border p-4">
+    <div className="mt-4 md:w-1/2 min-h-screen mx-auto border p-4">
       <div className="flex justify-between">
         <h1 className="text-lg italic">Personal Blog</h1>
         <Link

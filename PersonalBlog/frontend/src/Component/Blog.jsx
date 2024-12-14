@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { useBlogContext } from "@/Context/BlogContext";
 function Blog() {
@@ -23,7 +22,7 @@ function Blog() {
   });
 
   return (
-    <div className="mt-4 w-1/2 min-h-screen">
+    <div className="mt-4 md:w-1/2 min-h-screen">
       <div className="flex flex-col gap-2">{blogItems}</div>
     </div>
   );

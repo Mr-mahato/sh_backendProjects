@@ -38,14 +38,14 @@ function ArticleManipulation({ text, btn }) {
       if (text === "Update") {
         // one api call
         const {data} = await axios.patch(
-          `/api/admin/editBlog/${blogId}`,
+          `https://personalblogsh.onrender.com/v1/api/admin/editBlog/${blogId}`,
           articleData
         );
         editBlog(data.blog);
       } else {
         // creating  new blog
         const {data} = await axios.post(
-          "/api/admin/addblog",
+          "https://personalblogsh.onrender.com/v1/api/admin/addblog",
           articleData
         );
         addBlog(data.blogData);
@@ -61,8 +61,8 @@ function ArticleManipulation({ text, btn }) {
   // faced updating the state variable for the object type in state
 
   return (
-    <div className="w-1/2 p-2 mt-10 rounded-lg border mx-auto">
-      <div className="flex flex-col pt-20 pb-10 gap-2 w-[80%] mx-auto">
+    <div className="md:w-1/2  mt-10 rounded-lg border mx-auto">
+      <div className="flex flex-col pt-20 w-[90%] pb-10 gap-2 md:w-[80%] mx-auto">
         <h1 className="text-4xl font-semibold ">{text} Article</h1>
         {/* update article */}
         <input
@@ -75,7 +75,7 @@ function ArticleManipulation({ text, btn }) {
             }));
           }}
           name="articleTitle"
-          className="border-2 border-gray-800 outline-none p-2 rounded-md"
+          className="border-2 w-full border-gray-800 outline-none p-2 rounded-md"
           placeholder="Article Title"
         />
         <input

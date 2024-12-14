@@ -68,7 +68,7 @@ export const BlogContextProvider = ({ children }) => {
   useEffect(() => {
     const fetchAllBlog = async () => {
       try {
-        const { data } = await axios.get("/api/admin/getBlog");
+        const { data } = await axios.get(`https://personalblogsh.onrender.com/v1/api/admin/getBlog`);
         setBlog(data.blog);
       } catch (error) {
         console.log(error);
