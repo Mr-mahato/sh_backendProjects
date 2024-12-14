@@ -1,0 +1,14 @@
+{
+  "scripts":{
+    "server":"node server.js",
+    "build":"npm run vercel-build"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.6",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.7"
+  }
+}
