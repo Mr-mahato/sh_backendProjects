@@ -130,5 +130,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ![Mobile](assets/MobileResponsibe.png)
 
 
-### Project URL 
-[visit roadmap](https://roadmap.sh/projects/personal-blog)
+## Project URL 
+For more details this project is inspired from roadmap.sh:
+[Personal Blog Application on roadmap.sh](https://roadmap.sh/projects/personal-blog)
