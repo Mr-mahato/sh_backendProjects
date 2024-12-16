@@ -1,33 +1,31 @@
 const blogModel = require("../Model/Blog");
-
-const getPersonalBlog = async (req, res) => {
-  try {
-    console.log("beign called")
-    const blogCollection = await blogModel.find({});
-    res.status(200).json({
-      status: 1,
-      message: "Blog fetched",
-      blog: blogCollection,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(404).json({
-      status: 0,
-      message: "Blog fetching error 404",
-    });
-  }
-};
+const userModel = require("../Model/User");
 
 const addPersonalBlog = async (req, res) => {
   try {
-    const newBlog = req.body;
-    const nb = await blogModel(newBlog);
-    await nb.save();
-    console.log(nb);
-    console.log(newBlog);
+    let { ops, articleTitle, articleSubTitle } = req.body;
+
+    const newBlog = new blogModel({
+      articleContent: ops,
+      articleTitle,
+      articleSubTitle,
+    });
+
+    const savedBlog = await newBlog.save();
+    const user = await userModel.findById(req.user._id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    // Add the blog ID to the user's blogs array
+    user.blog.push(savedBlog._id); // Assuming `blogs` is an array in userSchema
+    await user.save();
     res.status(200).json({
       message: "blog created successfully",
-      blogData:nb
+      blogData: savedBlog,
     });
   } catch (error) {
     console.log(error);
@@ -76,7 +74,6 @@ const editParticularBlog = async (req, res) => {
 };
 
 module.exports = {
-  getPersonalBlog,
   addPersonalBlog,
   deleteParticularBlog,
   editParticularBlog,
