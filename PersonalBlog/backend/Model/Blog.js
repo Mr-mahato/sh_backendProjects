@@ -1,20 +1,29 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+const deltaSchema = new Schema(
+  {
+    insert: {
+      type: Schema.Types.Mixed,
+      required: true,
+    },
+    attributes: {
+      type: Schema.Types.Mixed,
+      required: false,
+    },
+  },
+  { _id: false }
+);
+
 const blogSchema = new Schema({
-  articleTitle: {
-    type: String,
-    require: true,
-  },
-  articleContent: {
-    type: String,
-    require: true,
-  },
+  articleTitle:String,
+  articleSubTitle:String,
+  articleContent:[deltaSchema],
   createdAt: {
     type: Date,
     default: Date.now(),
   },
 });
 
-const blogModel = new mongoose.model("Blog", blogSchema);
+const blogModel =  mongoose.model("Blog", blogSchema);
 module.exports = blogModel;
