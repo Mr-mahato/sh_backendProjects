@@ -6,8 +6,8 @@ import {
   useEffect,
 } from "react";
 import axios from "axios";
+import { api } from "@/lib/utils";
 export const BlogContext = createContext();
-
 // reducer function
 const reducer = (state, action) => {
   switch (action.type) {
@@ -68,7 +68,8 @@ export const BlogContextProvider = ({ children }) => {
   useEffect(() => {
     const fetchAllBlog = async () => {
       try {
-        const { data } = await axios.get(`https://personalblogsh.onrender.com/v1/api/admin/getBlog`);
+        const { data } = await axios.get(`http://localhost:3001/v1/api/user/getBlog`);
+        console.log(data.blog);
         setBlog(data.blog);
       } catch (error) {
         console.log(error);

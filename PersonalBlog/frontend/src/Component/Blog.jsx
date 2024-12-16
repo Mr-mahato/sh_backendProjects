@@ -8,7 +8,7 @@ function Blog() {
   const blogItems = blogCollection?.map((val, ind) => {
     return (
       <div key={ind} className="border p-2 rounded-md">
-        <Link to={`/blog/${val._id}`} className="flex justify-between">
+        <Link to={`/home/blog/${val._id}`} className="flex justify-between">
           <h1 className="text-2xl font-semibold capitalize">
             {val.articleTitle}
           </h1>
@@ -16,7 +16,7 @@ function Blog() {
             {new Date(val.createdAt).toLocaleDateString()}
           </p>
         </Link>
-        <p className="font-thin line-clamp-2">{val.articleContent}</p>
+        <p className="font-thin line-clamp-2">{val.articleSubTitle}</p>
       </div>
     );
   });
@@ -27,6 +27,8 @@ function Blog() {
     </div>
   );
 }
+
+
 
 export default Blog;
 

@@ -5,5 +5,5 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 export const api = axios.create({
-  baseURL:import.meta.env.BACKEND_URL,
+  baseURL:import.meta.env.VITE_API_BASE_URL
 })

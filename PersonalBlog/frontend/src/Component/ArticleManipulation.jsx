@@ -2,15 +2,12 @@ import { useBlogContext } from "@/Context/BlogContext";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-/*
+import { api } from "@/lib/utils";
+import Editor from "./TextEditor/Editor";
 
-  "articleTitle":"",
-  "articleContent""
-
-*/
 
 function ArticleManipulation({ text, btn }) {
-  const { blogCollection,addBlog ,editBlog} = useBlogContext();
+  const { blogCollection, addBlog, editBlog } = useBlogContext();
   const { blogId } = useParams();
 
   const clickedBlog = blogCollection.find((val) => val._id == blogId);
@@ -37,17 +34,14 @@ function ArticleManipulation({ text, btn }) {
     try {
       if (text === "Update") {
         // one api call
-        const {data} = await axios.patch(
-          `https://personalblogsh.onrender.com/v1/api/admin/editBlog/${blogId}`,
+        const { data } = await api.patch(
+          `/admin/editBlog/${blogId}`,
           articleData
         );
         editBlog(data.blog);
       } else {
         // creating  new blog
-        const {data} = await axios.post(
-          "https://personalblogsh.onrender.com/v1/api/admin/addblog",
-          articleData
-        );
+        const { data } = await api.post("/admin/addblog", articleData);
         addBlog(data.blogData);
       }
 
@@ -64,7 +58,6 @@ function ArticleManipulation({ text, btn }) {
     <div className="md:w-1/2  mt-10 rounded-lg border mx-auto">
       <div className="flex flex-col pt-20 w-[90%] pb-10 gap-2 md:w-[80%] mx-auto">
         <h1 className="text-4xl font-semibold ">{text} Article</h1>
-        {/* update article */}
         <input
           type="text"
           value={articleData.articleTitle}
@@ -90,6 +83,7 @@ function ArticleManipulation({ text, btn }) {
         Arrow Function: When using an arrow function to return an object, you need to wrap the object in parentheses to distinguish it from the function body.
         */}
 
+        {/* #TODO: make this text editor rich text editor ( quill ) */}
         <textarea
           className="border-2 border-gray-800 outline-none p-2 rounded-md"
           name="articleContent"
@@ -115,7 +109,7 @@ function ArticleManipulation({ text, btn }) {
         >
           {btn}
         </button>
-      </div>
+      </div> 
     </div>
   );
 }

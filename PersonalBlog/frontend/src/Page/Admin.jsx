@@ -2,6 +2,7 @@ import { useBlogContext } from "@/Context/BlogContext";
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { api } from "@/lib/utils";
 function Admin() {
   const { blogCollection, deleteBlog } = useBlogContext();
 
@@ -9,8 +10,8 @@ function Admin() {
 
   const handleBlogDeletion = async (blogId) => {
     try {
-      const responseBlogDeletion = await axios.delete(
-        `https://personalblogsh.onrender.com/v1/api/admin/deleteBlog/${blogId}`
+      const responseBlogDeletion = await api.delete(
+        `/admin/deleteBlog/${blogId}`
       );
       deleteBlog(blogId);
     } catch (error) {

@@ -8,9 +8,7 @@ import { BlogContextProvider } from "./Context/BlogContext";
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <StrictMode>
-      <BlogContextProvider>
         <App />
-      </BlogContextProvider>
     </StrictMode>
   </BrowserRouter>
 );
