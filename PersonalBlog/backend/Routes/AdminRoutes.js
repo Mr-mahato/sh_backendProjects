@@ -1,12 +1,14 @@
 const express = require("express");
-const { getPersonalBlog, addPersonalBlog, deleteParticularBlog, editParticularBlog } = require("../Controller/admin");
+const {  addPersonalBlog, deleteParticularBlog, editParticularBlog } = require("../Controller/admin");
+const authMiddleware = require("../Middleware/authMiddleware");
 
 const adminRouter = express.Router();
 
-adminRouter.get("/admin/getBlog", getPersonalBlog);
-adminRouter.post("/admin/addblog", addPersonalBlog);
-adminRouter.delete("/admin/deleteBlog/:blogId",deleteParticularBlog);
-adminRouter.patch("/admin/editBlog/:blogId",editParticularBlog);
+adminRouter.use(authMiddleware);
+
+adminRouter.post("/addblog", addPersonalBlog);
+adminRouter.delete("/deleteBlog/:blogId",deleteParticularBlog);
+adminRouter.patch("/editBlog/:blogId",editParticularBlog);
 module.exports = {
   adminRouter,
 };
