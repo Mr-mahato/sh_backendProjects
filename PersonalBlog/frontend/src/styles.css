@@ -1,0 +1,66 @@
+/* Import Quill CSS */
+@import 'quill/dist/quill.snow.css';
+
+/* Custom styles for code blocks */
+.ql-editor pre {
+  @apply bg-gray-800 text-white  rounded overflow-x-auto;
+}
+
+/* Custom styles for headings */
+.ql-editor h1 {
+  @apply text-3xl font-bold italic my-4;
+}
+
+.ql-editor h2 {
+  @apply text-xl font-semibold italic my-3;
+}
+
+.ql-editor h3 {
+  @apply text-lg font-medium my-2;
+}
+
+.ql-editor h4 {
+  @apply text-base font-medium my-2;
+}
+
+.ql-editor h5 {
+  @apply text-sm font-medium my-1;
+}
+
+.ql-editor h6 {
+  @apply text-xs font-medium my-1;
+}
+
+/* Custom styles for paragraphs */
+.ql-editor p {
+  @apply my-2 leading-relaxed;
+}
+
+/* Custom styles for blockquotes */
+.ql-editor blockquote {
+  @apply border-l-4 border-gray-300 pl-4 italic my-4;
+}
+
+/* Custom styles for lists */
+.ql-editor ol,
+.ql-editor ul {
+  @apply list-inside my-2;
+}
+
+.ql-editor ol {
+  @apply list-decimal;
+}
+
+.ql-editor ul {
+  @apply list-disc;
+}
+
+/* Custom styles for images */
+.ql-editor img {
+  @apply max-w-full h-auto my-4;
+}
+
+/* Custom styles for links */
+.ql-editor a {
+  @apply text-blue-500 underline;
+}
