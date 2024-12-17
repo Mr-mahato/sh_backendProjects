@@ -41,7 +41,8 @@ function ArticleManipulation({ text, btn }) {
         editBlog(data.blog);
       } else {
         // creating  new blog
-        const { data } = await api.post("/admin/addblog", articleData);
+        // #TODO: while sending admin to add blog i have to send the jwt token
+        const { data } = await api.post("http://localhost:3001/v1/api/admin/addblog", articleData);
         addBlog(data.blogData);
       }
 

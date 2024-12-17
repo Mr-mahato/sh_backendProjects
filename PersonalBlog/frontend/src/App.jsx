@@ -9,7 +9,7 @@ import Admin from "./Page/Admin";
 import UpdateBlog from "./Page/UpdateBlog";
 import CreateBlog from "./Page/CreateBlog";
 import { HomeLayout } from "./Layout/HomeLayout";
-
+import Blog from "./Component/Blog";
 function App() {
   return (
     <AuthContextProvider>
@@ -25,7 +25,8 @@ function App() {
             <Route index element={<Home />} />
             <Route path="blog/:blogId" element={<ParticularBlog />} />
             <Route path="admin" element={<Admin />} />
-            <Route path="new" element={<CreateBlog />} />
+            <Route path="personalblog" element={<Home isAdmin={true}/>}/>
+            <Route path="new-blog-creation" element={<CreateBlog />} />
             <Route path="admin/edit/:blogId" element={<UpdateBlog />} />
           </Route>
         </Route>

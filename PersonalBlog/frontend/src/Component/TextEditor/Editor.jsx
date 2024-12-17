@@ -5,16 +5,16 @@ import "react-quill/dist/quill.bubble.css";
 import axios from "axios";
 import { api } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
+import { useBlogContext } from "@/Context/BlogContext";
 const Editor = () => {
   const navigate = useNavigate();
   // State to handle changes in the text editor content
   const [content, setContent] = useState("");
-  const [savedContent, setSavedContent] = useState("");
   const [articleData, setArticleData] = useState({
     articleTitle: "",
     articleSubTitle: "",
   });
-  // Quill modules configuration
+  const {addBlog} = useBlogContext();
   const modules = {
     toolbar: [
       [{ header: "1" }, { header: "2" }, { font: [] }],
@@ -41,18 +41,24 @@ const Editor = () => {
   const handleSave = async () => {
     try {
       const { ops } = content;
-      setSavedContent(ops);
 
       console.log(ops);
       console.log("Content saved:", ops);
-      const resp = await axios.post(
+      const { data } = await axios.post(
         "http://localhost:3001/v1/api/admin/addblog",
-        { ops, ...articleData }
+        { ops, ...articleData },
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem('blogToken'))}`
+          },
+        }
       );
-      console.log(resp);
+      console.log(data);
+      addBlog(data.blogData);
       navigate(-1);
     } catch (error) {
       console.log(error);
+      console.log(error.status);
     }
 
     // Add your logic to save the content to a database or API

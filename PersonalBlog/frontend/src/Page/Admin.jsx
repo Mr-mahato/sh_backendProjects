@@ -3,23 +3,32 @@ import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { api } from "@/lib/utils";
+import { useAuth } from "@/Context/AuthContext";
 function Admin() {
-  const { blogCollection, deleteBlog } = useBlogContext();
-
-  if (!blogCollection) return <h1> Loading...</h1>;
+  const { blogCollection, deleteBlog , adminBlogs , setAdminBlogs } = useBlogContext();
+  const {user} = useAuth();
+  if (!adminBlogs) return <h1> Loading...</h1>;
 
   const handleBlogDeletion = async (blogId) => {
     try {
-      const responseBlogDeletion = await api.delete(
-        `/admin/deleteBlog/${blogId}`
+      const responseBlogDeletion = await axios.delete(
+        `http://localhost:3001/v1/api/admin/deleteBlog/${blogId}`,{
+          headers:{
+            Authorization:`Bearer ${JSON.parse(localStorage.getItem("blogToken"))}`
+          }
+        }
       );
       deleteBlog(blogId);
+      setAdminBlogs(prev => (prev.filter((val)=>val._id != blogId)));
+      console.log(responseBlogDeletion);
+      
     } catch (error) {
-      alert("something went wrong");
+
+      // alert("something went wrong");
       console.error(error);
     }
   };
-  const blogItems = blogCollection?.map((val, ind) => {
+  const blogItems = adminBlogs?.map((val, ind) => {
     return (
       <div key={ind} className="border p-2 rounded-md">
         <div className="flex justify-between">
@@ -49,13 +58,7 @@ function Admin() {
     <div className="mt-4 md:w-1/2 min-h-screen mx-auto border p-4">
       <div className="flex justify-between">
         <h1 className="text-lg italic">Personal Blog</h1>
-        <Link
-          to={"/new"}
-          className="font-bold border p-1 rounded-md border-gray-200"
-        >
-          {" "}
-          + Add
-        </Link>
+       
       </div>
       <div className="flex flex-col gap-2 mt-4">{blogItems}</div>
     </div>

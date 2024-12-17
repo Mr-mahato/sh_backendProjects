@@ -1,10 +1,12 @@
 import { useAuth } from "@/Context/AuthContext";
 import UserNavModel from "@/Model/UserNavModel";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Header() {
   const { setIsAuthenticated } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const userLogOut = async () => {
     try {
       setIsAuthenticated(false);
@@ -12,6 +14,9 @@ function Header() {
     } catch (error) {
       console.log(error);
     }
+  };
+  const makeModelOff = () => {
+    setIsModalOpen(false);
   };
   return (
     <>
@@ -39,56 +44,54 @@ function Header() {
               <span className="text-neutral-400 text-xl  font-semibold">C</span>
             </div>
 
-            <UserNavModel isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-              <div className="space-y-4">
-                <h2 className="text-2xl font-bold text-gray-800">
-                  User Details
-                </h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Enter your name"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Enter your email"
-                    />
-                  </div>
-                  <div className="flex justify-end space-x-3 pt-4">
-                    <button
-                      type="button"
-                      onClick={() => setIsModalOpen(false)}
-                      className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="px-4 py-2 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-md transition-colors"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </form>
+            <UserNavModel
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+            >
+              <div className="">
+                <div className="flex border-b flex-col gap-3">
+                  <Link
+                    onClick={makeModelOff}
+                    to="/home/new-blog-creation"
+                    className="text-gray-700 hover:text-gray-900"
+                  >
+                    New Blog
+                  </Link>
+                  <Link
+                    onClick={makeModelOff}
+                    to="/home/personalblog"
+                    className="text-gray-700 hover:text-gray-900"
+                  >
+                    All Blogs
+                  </Link>
+                </div>
+
+                <div className="border-b py-2">
+                  <Link
+                    onClick={makeModelOff}
+                    to="/home/admin"
+                    className="text-gray-700   hover:text-gray-900"
+                  >
+                    Blog Dashboard
+                  </Link>
+                </div>
+
+                <div className="flex flex-col gap-2 mt-2">
+                  <Link
+                    onClick={makeModelOff}
+                    to="/profile"
+                    className="text-gray-700 hover:text-gray-900"
+                  >
+                    User Profile
+                  </Link>
+
+                  <button
+                    onClick={userLogOut}
+                    className="text-gray-700 self-start  hover:text-gray-900"
+                  >
+                    Log Out
+                  </button>
+                </div>
               </div>
             </UserNavModel>
           </div>
