@@ -11,17 +11,15 @@ const addPersonalBlog = async (req, res) => {
       articleSubTitle,
     });
 
-    const savedBlog = await newBlog.save();
-    const user = await userModel.findById(req.user._id);
-
+    const user = await userModel.findById(req.user.id);
     if (!user) {
       return res.status(404).json({
         message: "User not found",
       });
     }
+    const savedBlog = await newBlog.save();
 
-    // Add the blog ID to the user's blogs array
-    user.blog.push(savedBlog._id); // Assuming `blogs` is an array in userSchema
+    user.blog.push(savedBlog._id);
     await user.save();
     res.status(200).json({
       message: "blog created successfully",
@@ -35,6 +33,21 @@ const addPersonalBlog = async (req, res) => {
   }
 };
 
+const getAllBlog = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const userData = await userModel.findById({ _id: userId }).populate("blog");
+    res.status(200).json({
+      message: "blog fetched successfully",
+      blogData: userData.blog,
+    });
+  } catch (error) {    
+    res.status(400).json({
+      message: "Error occur",
+      error
+    });
+  }
+};
 const deleteParticularBlog = async (req, res) => {
   try {
     const { blogId } = req.params;
@@ -76,5 +89,6 @@ const editParticularBlog = async (req, res) => {
 module.exports = {
   addPersonalBlog,
   deleteParticularBlog,
+  getAllBlog,
   editParticularBlog,
 };
