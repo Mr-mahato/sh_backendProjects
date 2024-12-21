@@ -16,14 +16,19 @@ const deltaSchema = new Schema(
 );
 
 const blogSchema = new Schema({
-  articleTitle:String,
-  articleSubTitle:String,
-  articleContent:[deltaSchema],
+  articleTitle: String,
+  articleSubTitle: String,
+  articleContent: [deltaSchema],
+  slug: {
+    type: String,
+    unique: true,
+  },
+  readingTime: Number,
   createdAt: {
     type: Date,
     default: Date.now(),
   },
 });
 
-const blogModel =  mongoose.model("Blog", blogSchema);
+const blogModel = mongoose.model("Blog", blogSchema);
 module.exports = blogModel;

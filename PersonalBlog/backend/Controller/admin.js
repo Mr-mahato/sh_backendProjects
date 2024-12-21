@@ -5,9 +5,25 @@ const addPersonalBlog = async (req, res) => {
   try {
     let { ops, articleTitle, articleSubTitle } = req.body;
 
+    // add slug , time required to read total blog
+    // fetch the number of blogs
+    const words = ops
+      .map((val) => val.insert)
+      .join(" ")
+      .replace(/\n/g, " "); // replacing new lines with the space
+
+    const wordCount = words.split(/\s+/).filter((val) => val.length > 0).length;
+    const readingTime = Math.ceil(wordCount / 200);
+    articleTitle = articleTitle.trimEnd();
+    articleTitle = articleTitle.toLowerCase();
+    const slug = articleTitle.replace(/\s+/g, "-");
+    console.log(slug);
+    console.log(words);
     const newBlog = new blogModel({
       articleContent: ops,
       articleTitle,
+      readingTime,
+      slug,
       articleSubTitle,
     });
 
@@ -41,10 +57,10 @@ const getAllBlog = async (req, res) => {
       message: "blog fetched successfully",
       blogData: userData.blog,
     });
-  } catch (error) {    
+  } catch (error) {
     res.status(400).json({
       message: "Error occur",
-      error
+      error,
     });
   }
 };
