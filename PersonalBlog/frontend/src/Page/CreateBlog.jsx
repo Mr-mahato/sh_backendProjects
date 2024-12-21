@@ -1,4 +1,3 @@
-import ArticleManipulation from '@/Component/ArticleManipulation'
 import Editor from '@/Component/TextEditor/Editor'
 import React from 'react'
 

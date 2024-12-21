@@ -1,10 +1,10 @@
 import { useBlogContext } from "@/Context/BlogContext";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import { api } from "@/lib/utils";
-import Editor from "./TextEditor/Editor";
 
+
+// I am not using this component
 
 function ArticleManipulation({ text, btn }) {
   const { blogCollection, addBlog, editBlog } = useBlogContext();
@@ -41,8 +41,8 @@ function ArticleManipulation({ text, btn }) {
         editBlog(data.blog);
       } else {
         // creating  new blog
-        // #TODO: while sending admin to add blog i have to send the jwt token
         const { data } = await api.post("http://localhost:3001/v1/api/admin/addblog", articleData);
+        console.log(data);
         addBlog(data.blogData);
       }
 
@@ -84,7 +84,6 @@ function ArticleManipulation({ text, btn }) {
         Arrow Function: When using an arrow function to return an object, you need to wrap the object in parentheses to distinguish it from the function body.
         */}
 
-        {/* #TODO: make this text editor rich text editor ( quill ) */}
         <textarea
           className="border-2 border-gray-800 outline-none p-2 rounded-md"
           name="articleContent"

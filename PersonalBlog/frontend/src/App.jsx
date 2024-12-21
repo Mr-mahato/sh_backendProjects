@@ -9,7 +9,6 @@ import Admin from "./Page/Admin";
 import UpdateBlog from "./Page/UpdateBlog";
 import CreateBlog from "./Page/CreateBlog";
 import { HomeLayout } from "./Layout/HomeLayout";
-import Blog from "./Component/Blog";
 function App() {
   return (
     <AuthContextProvider>
@@ -23,7 +22,7 @@ function App() {
         <Route element={<ProtectedRoutes />}>
           <Route path="/home" element={<HomeLayout />}>
             <Route index element={<Home />} />
-            <Route path="blog/:blogId" element={<ParticularBlog />} />
+            <Route path="blog/:slug" element={<ParticularBlog />} />
             <Route path="admin" element={<Admin />} />
             <Route path="personalblog" element={<Home isAdmin={true}/>}/>
             <Route path="new-blog-creation" element={<CreateBlog />} />

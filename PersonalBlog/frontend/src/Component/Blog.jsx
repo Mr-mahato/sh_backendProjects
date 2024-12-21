@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useBlogContext } from "@/Context/BlogContext";
 import { useAuth } from "@/Context/AuthContext";
 import axios from "axios";
+import { SkeletonLoader } from "@/Loaders/SekletonLoader";
 function Blog({ isHome }) {
   console.log(isHome);
   const { user } = useAuth();
@@ -10,6 +11,7 @@ function Blog({ isHome }) {
   // const [allBlog, setAllBlog] = useState(null);
   const { blogCollection , adminBlogs, setAdminBlogs } = useBlogContext();
 
+  
   useEffect(() => {
     if (!isHome) {
       const fetchBlogs = async () => {
@@ -36,12 +38,14 @@ function Blog({ isHome }) {
   }, [isHome]);
 
   const blogs = isHome ? blogCollection : adminBlogs;
-  if (!blogs) return <h1>Loading......</h1>;
+  if (!blogs) return (
+    <SkeletonLoader/>
+  );
 
   const blogItems = blogs?.map((val, ind) => {
     return (
       <div key={ind} className="border p-2 rounded-md">
-        <Link to={`/home/blog/${val._id}`} className="flex justify-between">
+        <Link to={`/home/blog/${val.slug}`} className="flex justify-between">
           <h1 className="text-2xl font-semibold capitalize">
             {val.articleTitle}
           </h1>

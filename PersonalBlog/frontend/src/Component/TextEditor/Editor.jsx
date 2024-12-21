@@ -6,6 +6,8 @@ import axios from "axios";
 import { api } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { useBlogContext } from "@/Context/BlogContext";
+
+// #TODO: work on adding tag and categories
 const Editor = () => {
   const navigate = useNavigate();
   // State to handle changes in the text editor content
@@ -14,6 +16,7 @@ const Editor = () => {
     articleTitle: "",
     articleSubTitle: "",
   });
+  // #TODO: make a way through which you can store the images of the blogs when user put them.
   const {addBlog} = useBlogContext();
   const modules = {
     toolbar: [

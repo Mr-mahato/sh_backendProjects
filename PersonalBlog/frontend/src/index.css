@@ -64,3 +64,6 @@
     @apply bg-background text-foreground;
   }
 }
+.userNav{
+  @apply cursor-pointer  flex items-center gap-2
+}
